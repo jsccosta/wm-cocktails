@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useOutlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
@@ -8,9 +8,37 @@ type MainLayoutProps = {
   children?: React.ReactNode;
 };
 
+const getDarkModeSetting = (): boolean => {
+  if (typeof window !== "undefined" && window.localStorage) {
+    const storedMode = window.localStorage.getItem("isDarkModeSet");
+    let parsedStoreValue = false;
+
+    if (storedMode) {
+      parsedStoreValue = JSON.parse(storedMode);
+    }
+
+    const browserSettings = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    if (parsedStoreValue || browserSettings) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const storeBrowserPreferenceInStorage = (darkMode: boolean) => {
+  window.localStorage.setItem("isDarkModeSet", JSON.stringify(darkMode));
+};
+
 export const MainLayout = ({ children }: MainLayoutProps) => {
   const outlet = useOutlet();
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const browserMode = getDarkModeSetting();
+    setDarkMode(browserMode);
+  }, []);
 
   return (
     <div
@@ -28,7 +56,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
           type="button"
           onClick={() => {
             setDarkMode(!darkMode);
-            console.log("dark");
+            storeBrowserPreferenceInStorage(!darkMode);
           }}
         >
           {darkMode ? (
