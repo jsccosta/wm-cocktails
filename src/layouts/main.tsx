@@ -10,6 +10,7 @@ type MainLayoutProps = {
 export const MainLayout = ({ children }: MainLayoutProps) => {
   const outlet = useOutlet();
   const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuStatus, setMobileMenuStatus] = useState(false);
 
   useEffect(() => {
     const browserMode = getDarkModeSetting();
@@ -21,6 +22,10 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
     storeBrowserPreferenceInStorage(!darkMode);
   };
 
+  const menuButtonClickHandler = () => {
+    setMobileMenuStatus(!mobileMenuStatus);
+  };
+
   return (
     <div
       className={`${darkMode && "dark"} h-full ${
@@ -28,12 +33,18 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       }`}
       data-testid="main"
     >
-      <Navbar />
-      <DarkModeButton
-        darkModeState={darkMode}
-        onClickHandler={onClickHandler}
+      <Navbar
+        mobileMenuToggler={setMobileMenuStatus}
+        isMenuOpen={mobileMenuStatus}
+        isDarkMode={darkMode}
       />
-      <div className="px-8 py-6 sm:px-4">
+      <div
+        className={`${mobileMenuStatus && "hidden"} px-8 py-1  sm:px-4 md:pt-1`}
+      >
+        <DarkModeButton
+          darkModeState={darkMode}
+          onClickHandler={onClickHandler}
+        />
         <div className="container mx-auto">
           {outlet ? <Outlet /> : children}
         </div>
