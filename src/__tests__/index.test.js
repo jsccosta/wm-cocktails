@@ -1,6 +1,15 @@
-import { render, screen, userEvent, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 import App from "../app";
+
+window.matchMedia = (query) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+  dispatchEvent: jest.fn(),
+});
 
 test("renders lazy component", async () => {
   render(<App />);
