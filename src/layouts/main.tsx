@@ -22,10 +22,6 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
     storeBrowserPreferenceInStorage(!darkMode);
   };
 
-  const menuButtonClickHandler = () => {
-    setMobileMenuStatus(!mobileMenuStatus);
-  };
-
   return (
     <div
       className={`${darkMode && "dark"} h-full ${
