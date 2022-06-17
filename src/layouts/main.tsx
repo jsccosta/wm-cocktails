@@ -13,7 +13,12 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="h-full bg-pampas" data-testid="main">
+    <div
+      className={`${darkMode && "dark"} h-full ${
+        darkMode ? "bg-gray-900" : "bg-pampas "
+      }`}
+      data-testid="main"
+    >
       <Navbar />
       <div className="container mx-auto flex justify-end">
         <button
