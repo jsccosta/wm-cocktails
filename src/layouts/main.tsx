@@ -48,7 +48,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       data-testid="main"
     >
       <Navbar />
-      <div className="container mx-auto flex justify-end">
+      <div className="container mx-auto flex justify-end px-4 sm:px-1">
         <button
           data-testid="layout-darkModeButton"
           aria-label={`Toggle dark mode ${darkMode ? "off" : "on"}`}
