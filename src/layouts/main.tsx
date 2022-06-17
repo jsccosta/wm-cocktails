@@ -15,23 +15,24 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="h-full bg-pampas" data-testid="main">
       <Navbar />
-
-      <button
-        data-testid="layout-darkModeButton"
-        aria-label={`Toggle dark mode ${darkMode ? "off" : "on"}`}
-        title="Toggle dark mode"
-        type="button"
-        onClick={() => {
-          setDarkMode(!darkMode);
-          console.log("dark");
-        }}
-      >
-        {darkMode ? (
-          <FontAwesomeIcon icon={faSun} color="#FFA500" />
-        ) : (
-          <FontAwesomeIcon icon={faMoon} />
-        )}
-      </button>
+      <div className="container mx-auto flex justify-end">
+        <button
+          data-testid="layout-darkModeButton"
+          aria-label={`Toggle dark mode ${darkMode ? "off" : "on"}`}
+          title="Toggle dark mode"
+          type="button"
+          onClick={() => {
+            setDarkMode(!darkMode);
+            console.log("dark");
+          }}
+        >
+          {darkMode ? (
+            <FontAwesomeIcon icon={faSun} color="#FFA500" />
+          ) : (
+            <FontAwesomeIcon icon={faMoon} />
+          )}
+        </button>
+      </div>
       <div className="px-8 py-6 sm:px-4">
         <div className="container mx-auto">
           {outlet ? <Outlet /> : children}
