@@ -14,7 +14,7 @@ const renderWithRouter = (ui, { route = "/" } = {}) => {
   };
 };
 
-test("full app rendering/navigating", async () => {
+test.skip("full app rendering/navigating", async () => {
   const { user } = await renderWithRouter(
     <Suspense fallback={null}>
       <Router />
