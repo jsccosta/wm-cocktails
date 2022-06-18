@@ -6,9 +6,11 @@ import { Card } from "components/card";
 
 const Recipes = () => {
   const { pageNumber } = useParams();
+
+  const currentPageView = pageNumber ? Number(pageNumber) : 1;
+
   const [allDrinks, setAllDrinks] = useState<Recipe[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(Number(pageNumber));
 
   useEffect(() => {
     const getDrinks = async () => {
@@ -26,20 +28,18 @@ const Recipes = () => {
     }
   }, [allDrinks, pageNumber]);
 
-  console.log(`total pages: ${numberOfPages}`);
-
-  // const onNavigationClick = (page: number) => {
-
-  //   setCurrentPage(page)
-
-  // }
-
   const baseLinkStyle =
     "page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded ";
   const selectedStyle =
     "bg-blue-600 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md";
   const deselectedStyle =
     "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none";
+
+  const commonArrowStyle =
+    "page-link relative block rounded rounded border-0 bg-transparent py-1.5 px-3 outline-none transition-all duration-300 focus:shadow-none";
+  const enabledArrowStyle =
+    "text-gray-800 hover:bg-gray-200 hover:text-gray-800";
+  const disabledArrowStyle = "pointer-events-none text-gray-500";
 
   return (
     <>
@@ -51,12 +51,14 @@ const Recipes = () => {
       <div className="flex justify-center">
         <nav aria-label="Page navigation example">
           <ul className="list-style-none flex">
-            <li className="page-item disabled">
+            <li className={`page-item `}>
               <a
-                className="page-link pointer-events-none relative block rounded rounded border-0 bg-transparent py-1.5 px-3 text-gray-500 outline-none transition-all duration-300 focus:shadow-none"
-                // href={`http://localhost:3000/recipes/${pageNumber - 1}`}
-                // tabIndex="-1"
-                // aria-disabled="true"
+                className={`${commonArrowStyle} ${
+                  currentPageView === 1 ? disabledArrowStyle : enabledArrowStyle
+                }`}
+                href={`http://localhost:3000/recipes/${currentPageView - 1}`}
+                tabIndex={currentPageView === 1 ? -1 : 0}
+                aria-disabled={currentPageView === 1 && "true"}
               >
                 Previous
               </a>
@@ -67,30 +69,34 @@ const Recipes = () => {
                 className={`page-item ${
                   idx + 1 === Number(pageNumber) && "active"
                 } `}
-                // onKeyDown={() => onNavigationClick(idx + 1)}
               >
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage(idx + 1)}
+                <a
                   className={`${baseLinkStyle} ${
                     idx + 1 === Number(pageNumber)
                       ? selectedStyle
                       : deselectedStyle
                   }`}
+                  href={`http://localhost:3000/recipes/${idx + 1}`}
                 >
                   {idx + 1}
-                </button>
-                {/* <a
-                  // href={`http://localhost:3000/recipes/${idx + 1}`}
-                >
-                </a> */}
+                </a>
               </li>
             ))}
 
-            <li className="page-item">
+            <li
+              className={`page-item ${
+                currentPageView + 1 === numberOfPages && "disabled"
+              }`}
+            >
               <a
-                className="page-link relative block rounded rounded border-0 bg-transparent py-1.5 px-3 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none"
-                // href={`http://localhost:3000/recipes/${pageNumber + 1}`}
+                className={`${commonArrowStyle} ${
+                  currentPageView === numberOfPages
+                    ? disabledArrowStyle
+                    : enabledArrowStyle
+                }`}
+                href={`http://localhost:3000/recipes/${currentPageView + 1}`}
+                tabIndex={currentPageView + 1 === numberOfPages ? -1 : 0}
+                aria-disabled={currentPageView + 1 === numberOfPages && "true"}
               >
                 Next
               </a>
