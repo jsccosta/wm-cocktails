@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import PageNotFound from "./index";
+import { ErrorMessage } from "./404Message";
 
 it("shows page not found message", () => {
   render(
@@ -8,7 +9,5 @@ it("shows page not found message", () => {
       <PageNotFound />
     </BrowserRouter>
   );
-  expect(
-    screen.getByText("Oh no! The page you were looking for was not found.")
-  ).toBeInTheDocument();
+  expect(screen.getByText(ErrorMessage)).toBeInTheDocument();
 });
