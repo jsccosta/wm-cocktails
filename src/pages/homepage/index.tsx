@@ -1,19 +1,38 @@
+import { useEffect, useState } from "react";
 import { Card } from "components/card";
+import { nanoid } from "nanoid";
+
+import { Recipe } from "types";
+// const [links, setLinks] = useState<string>();
 
 const Homepage = () => {
+  const [allDrinks, setAllDrinks] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    const getDrinks = async () => {
+      const { cocktails } = await fetch(
+        "http://localhost:3000/api/recipes/popular"
+      ).then((res) => res.json());
+
+      setAllDrinks(cocktails);
+    };
+
+    if (allDrinks.length === 0) {
+      getDrinks();
+    }
+  }, [allDrinks]);
+
   return (
     <main>
-      <div className="mb-4 space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
-        <p className="block text-radial">
-          👷🏻‍♂️ Please show the <strong>most popular recipes</strong> here.
-        </p>
-        <p className="block">
-          <span>You can use the api endpoint </span>
-          <code className="text-sm font-light">/api/recipes/popular</code>.
-        </p>
-      </div>
+      {/* <div className="mb-4 space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
+        
+        
+      </div> */}
       <div>
-        <Card />
+        {allDrinks.length > 0 &&
+          allDrinks
+            .slice(0, 5)
+            .map((drink) => <Card recipe={drink} key={nanoid()} />)}
       </div>
     </main>
   );
