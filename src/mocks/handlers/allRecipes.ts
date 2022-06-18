@@ -3,7 +3,7 @@ import { rest } from "msw";
 import cocktails from "../data/cocktails.json";
 
 export const allRecipes = rest.get(
-  "/api/recipes/:pageNumber",
+  "/api/recipes/all/:pageNumber",
   (req, res, { json }) => {
     const params = {
       limit: (req.url.searchParams.get("limit") as string) || "10",

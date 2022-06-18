@@ -12,7 +12,7 @@ const Recipes = () => {
   useEffect(() => {
     const getDrinks = async () => {
       const { data } = await fetch(
-        `http://localhost:3000/api/recipes/${pageNumber ?? 1}`
+        `http://localhost:3000/api/recipes/all/${pageNumber ?? 1}`
       ).then((res) => res.json());
 
       setAllDrinks(data);
