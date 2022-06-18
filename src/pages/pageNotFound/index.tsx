@@ -1,5 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
-import Hamburger from "hamburger-react";
+import { NavLink } from "react-router-dom";
 import { ROUTES } from "../../router";
 
 const PageNotFound = () => {
@@ -13,7 +12,7 @@ const PageNotFound = () => {
         <div className="flex h-2 flex-col px-2 text-3xl">
           <p>Shall we return </p>
           <NavLink
-            className="hover:bg-pampas-700 mt-3 flex justify-center rounded bg-pampas py-2 px-4 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            className=" mt-3 flex justify-center rounded bg-pampas py-2 px-4 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             data-testid="navbar-link--home"
             to={ROUTES.HOME}
           >
