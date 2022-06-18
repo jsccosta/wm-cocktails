@@ -5,6 +5,15 @@ import userEvent from "@testing-library/user-event";
 
 import { Router } from "../router";
 
+window.matchMedia = (query) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+  dispatchEvent: jest.fn(),
+});
+
 const renderWithRouter = (ui, { route = "/" } = {}) => {
   window.history.pushState({}, "Test page", route);
 
@@ -14,7 +23,7 @@ const renderWithRouter = (ui, { route = "/" } = {}) => {
   };
 };
 
-test.skip("full app rendering/navigating", async () => {
+test("full app rendering/navigating", async () => {
   const { user } = await renderWithRouter(
     <Suspense fallback={null}>
       <Router />
@@ -28,5 +37,5 @@ test.skip("full app rendering/navigating", async () => {
   await user.click(await screen.findByTestId(/navbar-link--recipes/));
 
   // Check if the recipes api tekst is visible
-  expect(screen.getByText("/api/recipes/all")).toBeInTheDocument();
+  expect(await screen.findByText("/api/recipes/all")).toBeInTheDocument();
 });
