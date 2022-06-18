@@ -5,7 +5,7 @@ import { Homepage, Recipes, PageNotFound } from "./pages";
 
 export const ROUTES = {
   HOME: "/",
-  RECIPES: "/recipes",
+  RECIPES: "/recipes/:pageNumber",
 };
 
 export const Router = () => {

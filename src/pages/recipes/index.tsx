@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
 import { Recipe } from "types";
 import { Card } from "components/card";
@@ -6,10 +7,12 @@ import { Card } from "components/card";
 const Recipes = () => {
   const [allDrinks, setAllDrinks] = useState<Recipe[]>([]);
 
+  const { pageNumber } = useParams();
+
   useEffect(() => {
     const getDrinks = async () => {
       const { data } = await fetch(
-        "http://localhost:3000/api/recipes/all"
+        `http://localhost:3000/api/recipes/${pageNumber ?? 1}`
       ).then((res) => res.json());
 
       setAllDrinks(data);
@@ -18,7 +21,9 @@ const Recipes = () => {
     if (allDrinks.length === 0) {
       getDrinks();
     }
-  }, [allDrinks]);
+  }, [allDrinks, pageNumber]);
+
+  console.log(`pageNumber: ${pageNumber} `);
 
   return (
     // <div className="space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
