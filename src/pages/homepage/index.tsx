@@ -30,9 +30,7 @@ const Homepage = () => {
       </div> */}
       <div>
         {allDrinks.length > 0 &&
-          allDrinks
-            .slice(0, 5)
-            .map((drink) => <Card recipe={drink} key={nanoid()} />)}
+          allDrinks.map((drink) => <Card recipe={drink} key={nanoid()} />)}
       </div>
     </main>
   );
