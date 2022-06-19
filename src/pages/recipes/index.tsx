@@ -68,25 +68,29 @@ const Recipes = () => {
                     Previous
                   </a>
                 </li>
-                {/* showing {currentPageView} of {numberOfPages} */}
-                {[...Array(numberOfPages)].map((_, idx) => (
-                  <li
-                    className={`page-item ${
-                      idx + 1 === Number(pageNumber) && "active"
-                    } `}
-                  >
-                    <a
-                      className={`${baseLinkStyle} ${
-                        idx + 1 === Number(pageNumber)
-                          ? selectedStyle
-                          : deselectedStyle
-                      }`}
-                      href={`http://localhost:3000/recipes/${idx + 1}`}
+                <div className="flex sm:hidden">
+                  showing {currentPageView} of {numberOfPages}
+                </div>
+                <div className="hidden sm:flex">
+                  {[...Array(numberOfPages)].map((_, idx) => (
+                    <li
+                      className={`page-item ${
+                        idx + 1 === Number(pageNumber) && "active"
+                      } `}
                     >
-                      {idx + 1}
-                    </a>
-                  </li>
-                ))}
+                      <a
+                        className={`${baseLinkStyle} ${
+                          idx + 1 === Number(pageNumber)
+                            ? selectedStyle
+                            : deselectedStyle
+                        }`}
+                        href={`http://localhost:3000/recipes/${idx + 1}`}
+                      >
+                        {idx + 1}
+                      </a>
+                    </li>
+                  ))}
+                </div>
                 <li
                   className={`page-item ${
                     currentPageView + 1 === numberOfPages && "disabled"
