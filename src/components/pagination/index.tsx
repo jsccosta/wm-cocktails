@@ -20,8 +20,8 @@ export const Pagination = ({
 }) => {
   const isFirstPage = currentPageView === 1;
   const isLastPage = currentPageView + 1 === numberOfPages;
-  const startOfDrinksOffset = (currentPageView - 1) * 8 + 1;
-  const endOfDrinksOffset = currentPageView * 8;
+  const startOfDrinksOffset = (currentPageView - 1) * resultsPerPage + 1;
+  const endOfDrinksOffset = currentPageView * resultsPerPage;
 
   return (
     <div className="flex justify-center">
