@@ -3,8 +3,6 @@ import { Card } from "components/card";
 import { Recipe } from "types";
 import { getRandomID } from "../../utils/index";
 
-// const [links, setLinks] = useState<string>();
-
 const Homepage = () => {
   const [allDrinks, setAllDrinks] = useState<Recipe[]>([]);
 
@@ -24,11 +22,7 @@ const Homepage = () => {
 
   return (
     <main>
-      {/* <div className="mb-4 space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
-        
-        
-      </div> */}
-      <div>
+      <div className="mb-4 space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
         {allDrinks.length > 0 &&
           allDrinks.map((drink) => <Card recipe={drink} key={getRandomID()} />)}
       </div>
