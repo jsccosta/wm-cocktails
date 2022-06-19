@@ -1,5 +1,7 @@
 import { Recipe, Ingredient } from "types";
-import { getRandomID } from "../../utils/index";
+import { SectionTitle } from "../sectionTitle";
+import { RecipeSection } from "../recipeSection";
+import { getRandomID, capitalize } from "../../utils/index";
 
 export const Card = ({ recipe }: { recipe: Recipe }) => {
   const { name, glass, category, ingredients, garnish, preparation } = recipe;
@@ -15,19 +17,18 @@ export const Card = ({ recipe }: { recipe: Recipe }) => {
         )}
 
         {glass && (
-          <>
-            <h3 className="text-lg font-bold">Glass</h3>
-            <div className="text-sm">{glass}</div>
-          </>
+          <RecipeSection
+            sectionTitle="Glass"
+            sectionContent={capitalize(glass)}
+          />
         )}
 
-        <h3 className="text-lg font-bold">Ingredients</h3>
+        <SectionTitle sectionTitle="Ingredients" />
         <ul className="list-inside list-disc px-1 text-sm">
           {ingredients.map((ingredientDetails) => {
             // @ts-ignore
             const { unit, amount, ingredient, special }: Ingredient =
               ingredientDetails;
-            // ToDo: review this logic: not really happy with this
             return (
               <li key={getRandomID()}>
                 {amount} {unit} {ingredient}
@@ -38,14 +39,12 @@ export const Card = ({ recipe }: { recipe: Recipe }) => {
         </ul>
 
         {garnish && (
-          <>
-            <h3 className="text-lg font-bold">Garnish</h3>
-            <div className="text-sm">{garnish}</div>
-          </>
+          <RecipeSection sectionTitle="Garnish" sectionContent={garnish} />
         )}
-
-        <h3 className="text-lg font-bold">Preparation</h3>
-        <div className="text-sm">{preparation}</div>
+        <RecipeSection
+          sectionTitle="Preparation"
+          sectionContent={preparation}
+        />
       </div>
     </div>
   );
