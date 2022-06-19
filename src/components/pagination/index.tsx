@@ -10,6 +10,31 @@ const commonArrowStyle =
 const enabledArrowStyle = "text-gray-800 hover:bg-gray-200 hover:text-gray-800";
 const disabledArrowStyle = "pointer-events-none text-gray-500";
 
+const PaginationAnchor = ({
+  isEnabled,
+  pageLink,
+  directionLabel,
+}: {
+  isEnabled: boolean;
+  pageLink: string;
+  directionLabel: string;
+}) => {
+  return (
+    <li className="page-item">
+      <a
+        className={`${commonArrowStyle} ${
+          isEnabled ? disabledArrowStyle : enabledArrowStyle
+        }`}
+        href={pageLink}
+        tabIndex={isEnabled ? -1 : 0}
+        aria-disabled={isEnabled && true}
+      >
+        {directionLabel}
+      </a>
+    </li>
+  );
+};
+
 export const Pagination = ({
   currentPageView,
   numberOfPages,
@@ -19,22 +44,18 @@ export const Pagination = ({
   numberOfPages: number;
   resultsPerPage: number;
 }) => {
+  const isFirstPage = currentPageView === 1;
+  const isLastPage = currentPageView + 1 === numberOfPages;
+
   return (
     <div className="flex justify-center">
       <nav aria-label="Drinks list navigation">
         <ul className="list-style-none flex text-sm">
-          <li className="page-item">
-            <a
-              className={`${commonArrowStyle} ${
-                currentPageView === 1 ? disabledArrowStyle : enabledArrowStyle
-              }`}
-              href={`http://localhost:3000/recipes/${currentPageView - 1}`}
-              tabIndex={currentPageView === 1 ? -1 : 0}
-              aria-disabled={currentPageView === 1 && true}
-            >
-              Previous
-            </a>
-          </li>
+          <PaginationAnchor
+            isEnabled={isFirstPage}
+            pageLink={`http://localhost:3000/recipes/${currentPageView - 1}`}
+            directionLabel="Previous"
+          />
           <div className="page-item flex items-center sm:hidden">
             Showing drinks {currentPageView} to 4 of {numberOfPages}
           </div>
@@ -58,24 +79,12 @@ export const Pagination = ({
               </li>
             ))}
           </div>
-          <li
-            className={`page-item ${
-              currentPageView + 1 === numberOfPages && "disabled"
-            }`}
-          >
-            <a
-              className={`${commonArrowStyle} ${
-                currentPageView === numberOfPages
-                  ? disabledArrowStyle
-                  : enabledArrowStyle
-              }`}
-              href={`http://localhost:3000/recipes/${currentPageView + 1}`}
-              tabIndex={currentPageView + 1 === numberOfPages ? -1 : 0}
-              aria-disabled={currentPageView + 1 === numberOfPages && true}
-            >
-              Next
-            </a>
-          </li>
+
+          <PaginationAnchor
+            isEnabled={isLastPage}
+            pageLink={`http://localhost:3000/recipes/${currentPageView + 1}`}
+            directionLabel="Next"
+          />
         </ul>
       </nav>
     </div>
