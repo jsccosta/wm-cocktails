@@ -33,7 +33,8 @@ export const Pagination = ({
             directionLabel="Previous"
           />
           <div className="page-item flex items-center sm:hidden">
-            Showing drinks {currentPageView} to 4 of {numberOfPages}
+            Showing drinks {startOfDrinksOffset} to {endOfDrinksOffset} of{" "}
+            {totalDrinks}
           </div>
           <div className="hidden sm:flex">
             {[...Array(numberOfPages)].map((_, idx) => (

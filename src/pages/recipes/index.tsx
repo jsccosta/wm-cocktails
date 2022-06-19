@@ -14,6 +14,7 @@ const Recipes = () => {
 
   const [drinksInPage, setDrinksInPage] = useState<Recipe[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
+  const [totalDrinks, setTotalDrinks] = useState<number>(0);
 
   useEffect(() => {
     const getDrinks = async () => {
@@ -23,6 +24,7 @@ const Recipes = () => {
 
       setNumberOfPages(Math.ceil(total / RESULTS_PER_PAGE));
       setDrinksInPage(data);
+      setTotalDrinks(total);
     };
     getDrinks();
   }, [pageNumber]);
@@ -41,6 +43,7 @@ const Recipes = () => {
             currentPageView={currentPageView}
             numberOfPages={numberOfPages}
             resultsPerPage={RESULTS_PER_PAGE}
+            totalDrinks={totalDrinks}
           />
         </>
       )}
