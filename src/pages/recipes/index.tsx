@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { nanoid } from "nanoid";
 import { Recipe } from "types";
 import { Card } from "components/card";
+import { getRandomID } from "utils";
 
 const Recipes = () => {
   const { pageNumber } = useParams();
@@ -42,69 +42,81 @@ const Recipes = () => {
   const disabledArrowStyle = "pointer-events-none text-gray-500";
 
   return (
-    <>
-      <div>
-        {allDrinks.length > 0 &&
-          allDrinks.map((drink) => <Card recipe={drink} key={nanoid()} />)}
-      </div>
-
-      <div className="flex justify-center">
-        <nav aria-label="Page navigation example">
-          <ul className="list-style-none flex">
-            <li className={`page-item `}>
-              <a
-                className={`${commonArrowStyle} ${
-                  currentPageView === 1 ? disabledArrowStyle : enabledArrowStyle
-                }`}
-                href={`http://localhost:3000/recipes/${currentPageView - 1}`}
-                tabIndex={currentPageView === 1 ? -1 : 0}
-                aria-disabled={currentPageView === 1 && "true"}
-              >
-                Previous
-              </a>
-            </li>
-
-            {[...Array(9)].map((_, idx) => (
-              <li
-                className={`page-item ${
-                  idx + 1 === Number(pageNumber) && "active"
-                } `}
-              >
-                <a
-                  className={`${baseLinkStyle} ${
-                    idx + 1 === Number(pageNumber)
-                      ? selectedStyle
-                      : deselectedStyle
-                  }`}
-                  href={`http://localhost:3000/recipes/${idx + 1}`}
-                >
-                  {idx + 1}
-                </a>
-              </li>
+    <main>
+      {allDrinks.length > 0 && (
+        <>
+          <div className="mb-4 space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
+            {allDrinks.map((drink) => (
+              <Card recipe={drink} key={getRandomID()} />
             ))}
+          </div>
 
-            <li
-              className={`page-item ${
-                currentPageView + 1 === numberOfPages && "disabled"
-              }`}
-            >
-              <a
-                className={`${commonArrowStyle} ${
-                  currentPageView === numberOfPages
-                    ? disabledArrowStyle
-                    : enabledArrowStyle
-                }`}
-                href={`http://localhost:3000/recipes/${currentPageView + 1}`}
-                tabIndex={currentPageView + 1 === numberOfPages ? -1 : 0}
-                aria-disabled={currentPageView + 1 === numberOfPages && "true"}
-              >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </>
+          <div className="flex justify-center">
+            <nav aria-label="Page navigation example">
+              <ul className="list-style-none flex">
+                <li className={`page-item `}>
+                  <a
+                    className={`${commonArrowStyle} ${
+                      currentPageView === 1
+                        ? disabledArrowStyle
+                        : enabledArrowStyle
+                    }`}
+                    href={`http://localhost:3000/recipes/${
+                      currentPageView - 1
+                    }`}
+                    tabIndex={currentPageView === 1 ? -1 : 0}
+                    aria-disabled={currentPageView === 1 && "true"}
+                  >
+                    Previous
+                  </a>
+                </li>
+                {/* showing {currentPageView} of {numberOfPages} */}
+                {[...Array(numberOfPages)].map((_, idx) => (
+                  <li
+                    className={`page-item ${
+                      idx + 1 === Number(pageNumber) && "active"
+                    } `}
+                  >
+                    <a
+                      className={`${baseLinkStyle} ${
+                        idx + 1 === Number(pageNumber)
+                          ? selectedStyle
+                          : deselectedStyle
+                      }`}
+                      href={`http://localhost:3000/recipes/${idx + 1}`}
+                    >
+                      {idx + 1}
+                    </a>
+                  </li>
+                ))}
+                <li
+                  className={`page-item ${
+                    currentPageView + 1 === numberOfPages && "disabled"
+                  }`}
+                >
+                  <a
+                    className={`${commonArrowStyle} ${
+                      currentPageView === numberOfPages
+                        ? disabledArrowStyle
+                        : enabledArrowStyle
+                    }`}
+                    href={`http://localhost:3000/recipes/${
+                      currentPageView + 1
+                    }`}
+                    tabIndex={currentPageView + 1 === numberOfPages ? -1 : 0}
+                    aria-disabled={
+                      currentPageView + 1 === numberOfPages && "true"
+                    }
+                  >
+                    Next
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </>
+      )}
+    </main>
   );
 };
 
