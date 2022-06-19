@@ -36,6 +36,7 @@ export const Navbar = ({
             color={isDarkMode ? "#e5e7eb" : "#000"}
             label="Open main menu"
             aria-expanded={isDarkMode ? "true" : "false"}
+            aria-controls="mobile-menu"
           />
         </div>
         <div
