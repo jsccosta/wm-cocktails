@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card } from "components/card";
-import { nanoid } from "nanoid";
-
 import { Recipe } from "types";
+import { getRandomID } from "../../utils/index";
+
 // const [links, setLinks] = useState<string>();
 
 const Homepage = () => {
@@ -30,7 +30,7 @@ const Homepage = () => {
       </div> */}
       <div>
         {allDrinks.length > 0 &&
-          allDrinks.map((drink) => <Card recipe={drink} key={nanoid()} />)}
+          allDrinks.map((drink) => <Card recipe={drink} key={getRandomID()} />)}
       </div>
     </main>
   );

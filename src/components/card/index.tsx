@@ -1,5 +1,5 @@
 import { Recipe, Ingredient } from "types";
-import { nanoid } from "nanoid";
+import { getRandomID } from "../../utils/index";
 
 export const Card = ({ recipe }: { recipe: Recipe }) => {
   const { name, glass, category, ingredients, garnish, preparation } = recipe;
@@ -29,7 +29,7 @@ export const Card = ({ recipe }: { recipe: Recipe }) => {
               ingredientDetails;
             // ToDo: review this logic: not really happy with this
             return (
-              <li key={nanoid()}>
+              <li key={getRandomID()}>
                 {amount} {unit} {ingredient}
                 {special}
               </li>
