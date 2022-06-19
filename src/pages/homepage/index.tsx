@@ -3,9 +3,6 @@ import { Card } from "components/card";
 import { Recipe } from "types";
 import { getRandomID } from "../../utils/index";
 
-import { Recipe } from "types";
-// const [links, setLinks] = useState<string>();
-
 const Homepage = () => {
   const [allDrinks, setAllDrinks] = useState<Recipe[]>([]);
 
