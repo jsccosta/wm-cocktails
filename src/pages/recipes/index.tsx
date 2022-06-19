@@ -4,12 +4,14 @@ import { Recipe } from "types";
 import { Card } from "components/card";
 import { getRandomID } from "utils";
 
+const RESULTS_PER_PAGE = 8;
+
 const Recipes = () => {
   const { pageNumber } = useParams();
 
   const currentPageView = pageNumber ? Number(pageNumber) : 1;
 
-  const [allDrinks, setAllDrinks] = useState<Recipe[]>([]);
+  const [drinksInPage, setDrinksInPage] = useState<Recipe[]>([]);
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
 
   useEffect(() => {
@@ -18,15 +20,11 @@ const Recipes = () => {
         `http://localhost:3000/api/recipes/all/${pageNumber ?? 1}`
       ).then((res) => res.json());
 
-      // ToDo set number of results per page as a global parameter
-      setNumberOfPages(Math.ceil(total / 8));
-      setAllDrinks(data);
+      setNumberOfPages(Math.ceil(total / RESULTS_PER_PAGE));
+      setDrinksInPage(data);
     };
-
-    if (allDrinks.length === 0) {
-      getDrinks();
-    }
-  }, [allDrinks, pageNumber]);
+    getDrinks();
+  }, [pageNumber]);
 
   const baseLinkStyle =
     "page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded ";
@@ -43,10 +41,10 @@ const Recipes = () => {
 
   return (
     <main>
-      {allDrinks.length > 0 && (
+      {drinksInPage.length > 0 && (
         <>
           <div className="mb-4 space-y-3 rounded border border-gray-200 bg-white/25 p-5 text-sm dark:bg-gray-900 dark:text-white">
-            {allDrinks.map((drink) => (
+            {drinksInPage.map((drink) => (
               <Card recipe={drink} key={getRandomID()} />
             ))}
           </div>
