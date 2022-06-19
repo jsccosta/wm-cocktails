@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Recipe } from "types";
 import { Card } from "components/card";
+import { Pagination } from "components/pagination";
 import { getRandomID } from "utils";
 
 const RESULTS_PER_PAGE = 8;
@@ -26,19 +27,6 @@ const Recipes = () => {
     getDrinks();
   }, [pageNumber]);
 
-  const baseLinkStyle =
-    "page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded ";
-  const selectedStyle =
-    "bg-blue-600 text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md";
-  const deselectedStyle =
-    "bg-transparent text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none";
-
-  const commonArrowStyle =
-    "page-link relative block rounded rounded border-0 bg-transparent py-1.5 px-3 outline-none transition-all duration-300 focus:shadow-none";
-  const enabledArrowStyle =
-    "text-gray-800 hover:bg-gray-200 hover:text-gray-800";
-  const disabledArrowStyle = "pointer-events-none text-gray-500";
-
   return (
     <main>
       {drinksInPage.length > 0 && (
@@ -49,73 +37,11 @@ const Recipes = () => {
             ))}
           </div>
 
-          <div className="flex justify-center">
-            <nav aria-label="Page navigation example">
-              <ul className="list-style-none flex">
-                <li className={`page-item `}>
-                  <a
-                    className={`${commonArrowStyle} ${
-                      currentPageView === 1
-                        ? disabledArrowStyle
-                        : enabledArrowStyle
-                    }`}
-                    href={`http://localhost:3000/recipes/${
-                      currentPageView - 1
-                    }`}
-                    tabIndex={currentPageView === 1 ? -1 : 0}
-                    aria-disabled={currentPageView === 1 && "true"}
-                  >
-                    Previous
-                  </a>
-                </li>
-                <div className="flex sm:hidden">
-                  showing {currentPageView} of {numberOfPages}
-                </div>
-                <div className="hidden sm:flex">
-                  {[...Array(numberOfPages)].map((_, idx) => (
-                    <li
-                      className={`page-item ${
-                        idx + 1 === Number(pageNumber) && "active"
-                      } `}
-                    >
-                      <a
-                        className={`${baseLinkStyle} ${
-                          idx + 1 === Number(pageNumber)
-                            ? selectedStyle
-                            : deselectedStyle
-                        }`}
-                        href={`http://localhost:3000/recipes/${idx + 1}`}
-                      >
-                        {idx + 1}
-                      </a>
-                    </li>
-                  ))}
-                </div>
-                <li
-                  className={`page-item ${
-                    currentPageView + 1 === numberOfPages && "disabled"
-                  }`}
-                >
-                  <a
-                    className={`${commonArrowStyle} ${
-                      currentPageView === numberOfPages
-                        ? disabledArrowStyle
-                        : enabledArrowStyle
-                    }`}
-                    href={`http://localhost:3000/recipes/${
-                      currentPageView + 1
-                    }`}
-                    tabIndex={currentPageView + 1 === numberOfPages ? -1 : 0}
-                    aria-disabled={
-                      currentPageView + 1 === numberOfPages && "true"
-                    }
-                  >
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <Pagination
+            currentPageView={currentPageView}
+            numberOfPages={numberOfPages}
+            resultsPerPage={RESULTS_PER_PAGE}
+          />
         </>
       )}
     </main>
