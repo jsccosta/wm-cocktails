@@ -2,16 +2,10 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import PageNotFound from "./index";
 import { ErrorMessage } from "./404Message";
+import { matchMediaMock } from "../../utils/mocks";
 import { Router } from "../../router";
 
-window.matchMedia = (query) => ({
-  matches: false,
-  media: query,
-  onchange: null,
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
-  dispatchEvent: jest.fn(),
-});
+window.matchMedia = matchMediaMock;
 
 it("shows page not found message", () => {
   render(
