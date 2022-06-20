@@ -25,7 +25,7 @@ export const Pagination = ({
   const endOfDrinksOffset = currentPageView * resultsPerPage;
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center" data-test-id="pagination-component">
       <nav aria-label="Drinks list navigation">
         <ul className="flex text-sm">
           <PaginationAnchor
@@ -40,6 +40,7 @@ export const Pagination = ({
             {[...Array(numberOfPages)].map((_, idx) => (
               <li className={`${idx + 1 === currentPageView && "active"} `}>
                 <Link
+                  data-test-id="pagination-button"
                   to={`/recipes/${idx + 1}`}
                   className={`${baseLinkStyle} ${
                     idx + 1 === currentPageView
