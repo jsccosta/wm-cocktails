@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { PaginationAnchor } from "../paginationAnchor";
 
 const baseLinkStyle =
@@ -19,47 +20,41 @@ export const Pagination = ({
   totalDrinks: number;
 }) => {
   const isFirstPage = currentPageView === 1;
-  const isLastPage = currentPageView + 1 === numberOfPages;
+  const isLastPage = currentPageView === numberOfPages;
   const startOfDrinksOffset = (currentPageView - 1) * resultsPerPage + 1;
   const endOfDrinksOffset = currentPageView * resultsPerPage;
 
   return (
     <div className="flex justify-center">
       <nav aria-label="Drinks list navigation">
-        <ul className="list-style-none flex text-sm">
+        <ul className="flex text-sm">
           <PaginationAnchor
             isEnabled={isFirstPage}
-            pageLink={`http://localhost:3000/recipes/${currentPageView - 1}`}
+            pageLink={`/recipes/${currentPageView - 1}`}
             directionLabel="Previous"
           />
-          <div className="page-item flex items-center sm:hidden">
-            Showing drinks {startOfDrinksOffset} to {endOfDrinksOffset} of{" "}
-            {totalDrinks}
+          <div className=" flex items-center sm:hidden">
+            Drinks {startOfDrinksOffset} to {endOfDrinksOffset} of {totalDrinks}
           </div>
           <div className="hidden sm:flex">
             {[...Array(numberOfPages)].map((_, idx) => (
-              <li
-                className={`page-item ${
-                  idx + 1 === currentPageView && "active"
-                } `}
-              >
-                <a
+              <li className={`${idx + 1 === currentPageView && "active"} `}>
+                <Link
+                  to={`/recipes/${idx + 1}`}
                   className={`${baseLinkStyle} ${
                     idx + 1 === currentPageView
                       ? selectedStyle
                       : deselectedStyle
                   }`}
-                  href={`http://localhost:3000/recipes/${idx + 1}`}
                 >
                   {idx + 1}
-                </a>
+                </Link>
               </li>
             ))}
           </div>
-
           <PaginationAnchor
             isEnabled={isLastPage}
-            pageLink={`http://localhost:3000/recipes/${currentPageView + 1}`}
+            pageLink={`/recipes/${currentPageView + 1}`}
             directionLabel="Next"
           />
         </ul>
