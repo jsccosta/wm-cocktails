@@ -9,7 +9,7 @@ export const DarkModeButton = ({
   onClickHandler: () => void;
 }) => {
   return (
-    <div className="container mx-auto flex justify-end px-4 sm:px-1">
+    <div className="container mx-auto flex justify-end py-2 sm:px-1">
       <button
         data-testid="layout-darkModeButton"
         aria-label={`Toggle dark mode ${darkModeState ? "off" : "on"}`}
