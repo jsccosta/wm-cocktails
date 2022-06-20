@@ -11,7 +11,6 @@ export const allRecipes = rest.get(
     };
 
     const { pageNumber } = req.params;
-    console.log(`pageNumber: ${pageNumber}`);
 
     const limit = parseInt(params.limit, 10);
     const offset = parseInt(params.offset, 10);
@@ -26,7 +25,6 @@ export const allRecipes = rest.get(
         offset,
         total: cocktails.length,
         data: cocktails.slice(sliceStart, sliceEnd),
-        // data: cocktails.slice(offset, offset + limit),
       })
     );
   }

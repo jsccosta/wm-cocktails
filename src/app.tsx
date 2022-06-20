@@ -6,6 +6,8 @@ import Fallback from "./fallback";
 
 import "./index.css";
 
+// adding this wrapper to scroll to the top of the page
+// when user uses navigation in the recipes page
 const Wrapper = ({ children }: { children: any }) => {
   const location = useLocation();
   useLayoutEffect(() => {
@@ -14,16 +16,18 @@ const Wrapper = ({ children }: { children: any }) => {
   return children;
 };
 
-const App = () => (
-  <React.StrictMode>
-    <BrowserRouter>
-      <Suspense fallback={<Fallback />}>
-        <Wrapper>
-          <Router />
-        </Wrapper>
-      </Suspense>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+const App = () => {
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <Suspense fallback={<Fallback />}>
+          <Wrapper>
+            <Router />
+          </Wrapper>
+        </Suspense>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+};
 
 export default App;
