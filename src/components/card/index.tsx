@@ -7,7 +7,10 @@ export const Card = ({ recipe }: { recipe: Recipe }) => {
   const { name, glass, category, ingredients, garnish, preparation } = recipe;
 
   return (
-    <div className="mb-2 flex border border-gray-200 bg-white/50 p-4 dark:bg-gray-900 dark:text-white">
+    <div
+      data-test-id="drink-card"
+      className="mb-2 flex border border-gray-200 bg-white/50 p-4 dark:bg-gray-900 dark:text-white"
+    >
       <div className="block space-y-2">
         <h2 className="text-2xl font-bold">{name}</h2>
         {category && (
