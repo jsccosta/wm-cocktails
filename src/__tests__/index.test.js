@@ -5,18 +5,6 @@ import App from "../app";
 
 window.matchMedia = matchMediaMock;
 
-test("renders lazy component", async () => {
-  render(<App />);
-
-  const textToMatch = await screen.findByText(/You can use the api endpoint/);
-  expect(textToMatch).toBeInTheDocument();
-});
-
-test("displays dark mode button", () => {
-  render(<App />);
-  expect(screen.getByTestId("layout-darkModeButton")).toBeInTheDocument();
-});
-
 test("clicking on dark mode button toggles background color", async () => {
   render(<App />);
   const darkModeToggleButton = screen.getByTestId("layout-darkModeButton");
