@@ -5,7 +5,7 @@ import { ErrorMessage } from "./404Message";
 const PageNotFound = () => {
   return (
     <div className="space-y-3 rounded border border-gray-200 bg-white/25 p-5 dark:bg-gray-900">
-      <div className="notFound">
+      <div className="notFound flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat">
         <p className="px-2 pb-3 text-4xl">{ErrorMessage}</p>
         <div className="flex h-2 flex-col px-2 text-3xl">
           <p>Shall we return </p>

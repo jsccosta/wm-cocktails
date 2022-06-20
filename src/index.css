@@ -10,11 +10,4 @@ body,
 .notFound {
   background-image: url("./static/bobby-donald-KikhsHzIO9o-unsplash.jpg");
   height: 65vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
