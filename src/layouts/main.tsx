@@ -24,7 +24,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <div
-      className={`${darkMode && "dark"} h-full ${
+      className={`${darkMode && "dark"} min-h-full ${
         darkMode ? "bg-gray-900" : "bg-pampas "
       }`}
       data-testid="main"
