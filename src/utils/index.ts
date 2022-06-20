@@ -20,3 +20,8 @@ export const getDarkModeSetting = (): boolean => {
 export const storeBrowserPreferenceInStorage = (darkMode: boolean) => {
   window.localStorage.setItem("isDarkModeSet", JSON.stringify(darkMode));
 };
+
+export const getRandomID = () => Math.ceil(Math.random() * 1000000000);
+
+export const capitalize = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1);
