@@ -1,15 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 
+import { matchMediaMock } from "../utils/mocks";
 import App from "../app";
 
-window.matchMedia = (query) => ({
-  matches: false,
-  media: query,
-  onchange: null,
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
-  dispatchEvent: jest.fn(),
-});
+window.matchMedia = matchMediaMock;
 
 test("renders lazy component", async () => {
   render(<App />);

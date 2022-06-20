@@ -3,16 +3,10 @@ import { MemoryRouter } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { matchMediaMock } from "../utils/mocks";
 import { Router } from "../router";
 
-window.matchMedia = (query) => ({
-  matches: false,
-  media: query,
-  onchange: null,
-  addEventListener: jest.fn(),
-  removeEventListener: jest.fn(),
-  dispatchEvent: jest.fn(),
-});
+window.matchMedia = matchMediaMock;
 
 const renderWithRouter = (ui, { route = "/" } = {}) => {
   window.history.pushState({}, "Test page", route);
