@@ -1,4 +1,4 @@
-import { Recipe, Ingredient } from "types";
+import { Recipe } from "types";
 import { SectionTitle } from "../sectionTitle";
 import { RecipeSection } from "../recipeSection";
 import { getRandomID, capitalize } from "../../utils/index";
@@ -31,9 +31,17 @@ export const Card = ({ recipe }: { recipe: Recipe }) => {
         <SectionTitle sectionTitle="Ingredients" />
         <ul className="list-inside list-disc px-1 text-sm">
           {ingredients.map((ingredientDetails) => {
-            // @ts-ignore
-            const { unit, amount, ingredient, special }: Ingredient =
-              ingredientDetails;
+            const {
+              unit,
+              amount,
+              ingredient,
+              special,
+            }: {
+              unit?: string;
+              amount?: number;
+              ingredient?: string;
+              special?: string;
+            } = ingredientDetails;
             return (
               <li key={getRandomID()}>
                 {amount} {unit} {ingredient}
